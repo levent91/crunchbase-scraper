@@ -8,10 +8,9 @@ const {
     utils: { log },
 } = Apify;
 
-
 // Create crawler
 Apify.main(async () => {
-    log.info('PHASE -- STARTING ACTOR.');
+    log.info('PHASE -- STARTING ACTOR..');
 
     // Create request queue
     const requestQueue = await Apify.openRequestQueue();

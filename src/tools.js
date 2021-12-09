@@ -7,6 +7,7 @@ const {
     utils: { log },
 } = Apify;
 
+
 // Retrieves sources and returns object for request list
 exports.getSources = async () => {
     log.debug('Getting sources');
