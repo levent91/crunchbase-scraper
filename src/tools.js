@@ -110,7 +110,7 @@ exports.createRouter = (globalContext) => {
     };
 };
 
-exports.splitRank = (startRank = 1, endRank = 10000, investorType) => {
+exports.splitRank = (startRank = 1, endRank = 10000000, investorType) => {
     function splitNumbers(min, max) {
         // Don't forget that max can be null and we have to handle that situation
         if (max && min > max) {
