@@ -36,7 +36,7 @@ Apify.main(async () => {
     log.info('PHASE -- SETTING UP CRAWLER.');
     const crawler = new Apify.BasicCrawler({
         requestQueue,
-        maxConcurrency: 1,
+        maxConcurrency: 50,
         handleRequestTimeoutSecs: 120,
         useSessionPool: true,
         handleRequestFunction: async (context) => {
