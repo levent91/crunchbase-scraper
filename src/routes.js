@@ -114,16 +114,14 @@ exports.ORGANIZATION = async ({ data, request }, { requestQueue }) => {
             round_type: investment.funding_round_identifier.value.split('-')[0].trim(),
             transaction_date: investment.announced_on,
             lead_investor: investment.is_lead_investor,
-            url_source: 'https://www.crunchbase.com/organization/zencargo',
+            url_source: `https://www.crunchbase.com/organization/${investment.organization_identifier.permalink}`,
         })),
     };
-
 
     const companies = (cards.investments_list || []).map(investment => ({
         name: investment.organization_identifier.value,
         permalink: investment.organization_identifier.permalink,
     }));
-
 
     for (const company of companies) {
         await requestQueue.addRequest({
@@ -157,7 +155,6 @@ exports.COMPANY = async ({ data, request }, { companyDataset }) => {
         && companyJSON.cards.company_about_fields2.location_identifiers.find(location => location.location_type === 'country').value,
         industry: companyJSON.cards.overview_fields_extended && companyJSON.cards.overview_fields_extended.categories && companyJSON.cards.overview_fields_extended.categories.map(category => category.value),
     };
-
 
     await companyDataset.pushData(output);
 

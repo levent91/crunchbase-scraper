@@ -33,7 +33,7 @@ exports.getSources = async () => {
                     'sec-fetch-site': 'same-origin',
                     'x-requested-with': 'XMLHttpRequest',
                 },
-            }
+            },
         });
     }
 };
@@ -57,7 +57,7 @@ exports.splitRank = (startRank = 1, endRank = 10000000, investorType) => {
 
         // We crate a middle value for the split. If max in null, we will use double min as the middle value
         const middle = max
-            ? min + Math.floor((max - min) / 2)
+            ? Math.floor((max - min) / 2)
             : min * 2;
 
         // We have to do the Math.max and Math.min to prevent having min > max
