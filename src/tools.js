@@ -7,21 +7,21 @@ const {
     utils: { log },
 } = Apify;
 
-
+const allTypes = ['venture_capital', 'investment_bank', 'fund_of_funds', 'micro_vc', 'incubator', 'hedge_fund', 'secondary_purchaser', 'government_office', 'accelerator', 'co_working_space', 'startup_competition', 'private_equity_firm', 'venture_debt', 'family_investment_office', 'pension_funds', 'syndicate', 'angel_group', 'university_program', 'corporate_venture_capital', 'entrepreneurship_program'];
 // Retrieves sources and returns object for request list
 exports.getSources = async () => {
     log.debug('Getting sources');
-
-    return [
-        {
+    const sources = [];
+    for (const type of allTypes) {
+        sources.push({
             url: 'https://www.crunchbase.com/v4/data/searches/principal.investors?source=custom_query_builder',
             userData: {
                 label: 'LIST',
                 method: 'POST',
                 startRank: 1,
                 endRank: 10000000,
-                investorType: 'venture_capital',
-                payload: '{"field_ids":["identifier","num_investments_funding_rounds","num_exits","location_identifiers"],"order":[{"field_id":"num_investments_funding_rounds","sort":"desc"}],"query":[{"type":"predicate","field_id":"investor_type","operator_id":"includes","values":["venture_capital"]},{"type":"predicate","field_id":"rank_principal_investor","operator_id":"between","include_nulls":null,"values":[1,10000000]}],"field_aggregators":[],"collection_id":"principal.investors","limit":15}',
+                investorType: `${type}`,
+                payload: `{"field_ids":["identifier","num_investments_funding_rounds","num_exits","location_identifiers"],"order":[{"field_id":"num_investments_funding_rounds","sort":"desc"}],"query":[{"type":"predicate","field_id":"investor_type","operator_id":"includes","values":[${type}]},{"type":"predicate","field_id":"rank_principal_investor","operator_id":"between","include_nulls":null,"values":[1,10000000]}],"field_aggregators":[],"collection_id":"principal.investors","limit":15}`,
                 headers: {
                     accept: 'application/json, text/plain, */*',
                     'accept-language': 'en-US,en;q=0.9,fr-CA;q=0.8,fr;q=0.7,tr;q=0.6,de;q=0.5,de-AT;q=0.4,en-IN;q=0.3,en-GB;q=0.2,en-AU;q=0.1,en-NZ;q=0.1,en-CA;q=0.1,en-ZA;q=0.1,en-GB-oxendict;q=0.1',
@@ -33,72 +33,9 @@ exports.getSources = async () => {
                     'sec-fetch-site': 'same-origin',
                     'x-requested-with': 'XMLHttpRequest',
                 },
-            },
-        }, {
-            url: 'https://www.crunchbase.com/v4/data/searches/principal.investors?source=custom_query_builder',
-            userData: {
-                label: 'LIST',
-                method: 'POST',
-                startRank: 1,
-                endRank: 10000000,
-                investorType: 'private_equity_firm',
-                payload: '{"field_ids":["identifier","num_investments_funding_rounds","num_exits","location_identifiers"],"order":[{"field_id":"num_investments_funding_rounds","sort":"desc"}],"query":[{"type":"predicate","field_id":"investor_type","operator_id":"includes","values":["private_equity_firm"]},{"type":"predicate","field_id":"rank_principal_investor","operator_id":"between","include_nulls":null,"values":[1,10000000]}],"field_aggregators":[],"collection_id":"principal.investors","limit":15}',
-                headers: {
-                    accept: 'application/json, text/plain, */*',
-                    'accept-language': 'en-US,en;q=0.9,fr-CA;q=0.8,fr;q=0.7,tr;q=0.6,de;q=0.5,de-AT;q=0.4,en-IN;q=0.3,en-GB;q=0.2,en-AU;q=0.1,en-NZ;q=0.1,en-CA;q=0.1,en-ZA;q=0.1,en-GB-oxendict;q=0.1',
-                    'content-type': 'application/json',
-                    'sec-ch-ua': '"Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92"',
-                    'sec-ch-ua-mobile': '?0',
-                    'sec-fetch-dest': 'empty',
-                    'sec-fetch-mode': 'cors',
-                    'sec-fetch-site': 'same-origin',
-                    'x-requested-with': 'XMLHttpRequest',
-                },
-            },
-        }, {
-            url: 'https://www.crunchbase.com/v4/data/searches/principal.investors?source=custom_query_builder',
-            userData: {
-                label: 'LIST',
-                method: 'POST',
-                startRank: 1,
-                endRank: 10000000,
-                investorType: 'corporate_venture_capital',
-                payload: '{"field_ids":["identifier","num_investments_funding_rounds","num_exits","location_identifiers"],"order":[{"field_id":"num_investments_funding_rounds","sort":"desc"}],"query":[{"type":"predicate","field_id":"investor_type","operator_id":"includes","values":["corporate_venture_capital"]},{"type":"predicate","field_id":"rank_principal_investor","operator_id":"between","include_nulls":null,"values":[1,10000000]}],"field_aggregators":[],"collection_id":"principal.investors","limit":15}',
-                headers: {
-                    accept: 'application/json, text/plain, */*',
-                    'accept-language': 'en-US,en;q=0.9,fr-CA;q=0.8,fr;q=0.7,tr;q=0.6,de;q=0.5,de-AT;q=0.4,en-IN;q=0.3,en-GB;q=0.2,en-AU;q=0.1,en-NZ;q=0.1,en-CA;q=0.1,en-ZA;q=0.1,en-GB-oxendict;q=0.1',
-                    'content-type': 'application/json',
-                    'sec-ch-ua': '"Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92"',
-                    'sec-ch-ua-mobile': '?0',
-                    'sec-fetch-dest': 'empty',
-                    'sec-fetch-mode': 'cors',
-                    'sec-fetch-site': 'same-origin',
-                    'x-requested-with': 'XMLHttpRequest',
-                },
-            },
-        },
-        {
-            url: 'https://www.crunchbase.com/v4/data/searches/principal.investors?source=custom_query_builder',
-            userData: {
-                label: 'LIST',
-                method: 'POST',
-                startRank: 1,
-                endRank: 10000000,
-                investorType: 'micro_vc',
-                payload: '{"field_ids":["identifier","num_investments_funding_rounds","num_exits","location_identifiers"],"order":[{"field_id":"num_investments_funding_rounds","sort":"desc"}],"query":[{"type":"predicate","field_id":"investor_type","operator_id":"includes","values":["micro_vc"]},{"type":"predicate","field_id":"rank_principal_investor","operator_id":"between","include_nulls":null,"values":[1,10000000]}],"field_aggregators":[],"collection_id":"principal.investors","limit":15}',
-                headers: {
-                    accept: 'application/json, text/plain, */*',
-                    'accept-language': 'en-US,en;q=0.9,fr-CA;q=0.8,fr;q=0.7,tr;q=0.6,de;q=0.5,de-AT;q=0.4,en-IN;q=0.3,en-GB;q=0.2,en-AU;q=0.1,en-NZ;q=0.1,en-CA;q=0.1,en-ZA;q=0.1,en-GB-oxendict;q=0.1',
-                    'content-type': 'application/json',
-                    'sec-ch-ua': '"Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92"',
-                    'sec-ch-ua-mobile': '?0',
-                    'sec-fetch-dest': 'empty',
-                    'sec-fetch-mode': 'cors',
-                    'sec-fetch-site': 'same-origin',
-                    'x-requested-with': 'XMLHttpRequest',
-                },
-            },
-        }];
+            }
+        });
+    }
 };
 
 // Create router
