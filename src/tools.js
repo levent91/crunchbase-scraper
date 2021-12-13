@@ -20,7 +20,7 @@ exports.getSources = async () => {
                 method: 'POST',
                 startRank: 1,
                 endRank: 10000000,
-                investorType: `${type}`,
+                investorType: type,
                 payload: `{"field_ids":["identifier","num_investments_funding_rounds","num_exits","location_identifiers"],"order":[{"field_id":"num_investments_funding_rounds","sort":"desc"}],"query":[{"type":"predicate","field_id":"investor_type","operator_id":"includes","values":[${type}]},{"type":"predicate","field_id":"rank_principal_investor","operator_id":"between","include_nulls":null,"values":[1,10000000]}],"field_aggregators":[],"collection_id":"principal.investors","limit":15}`,
                 headers: {
                     accept: 'application/json, text/plain, */*',
