@@ -10,7 +10,7 @@ const {
 
 // Create crawler
 Apify.main(async () => {
-    log.info('PHASE -- STARTING ACTOR-.');
+    log.info('PHASE -- STARTING ACTOR');
 
     // Create request queue
     const requestQueue = await Apify.openRequestQueue();
@@ -25,7 +25,7 @@ Apify.main(async () => {
     const proxyConfiguration = await Apify.createProxyConfiguration();
 
     // Portfolio company dataset
-    const companyDataset = await Apify.openDataset(`COMPANY-${moment().format('YYYYMMDDHHss')}`);
+    const companyDataset = await Apify.openDataset(`COMPANY`);
 
     log.info(`Investment Firm dataset: https://api.apify.com/v2/datasets/${Apify.getEnv().defaultDatasetId}/items?clean=true`);
     log.info(`Company dataset: https://api.apify.com/v2/datasets/${companyDataset.id}/items?clean=true`);

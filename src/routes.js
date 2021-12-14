@@ -39,7 +39,7 @@ exports.LIST = async ({ data, request }, { requestQueue }) => {
 
     // Get location
     const json = JSON.parse(data);
-    const { entities } = json;
+    const { count, entities } = json;
 
     // Fetch detail
     for (const entity of entities) {
@@ -53,13 +53,13 @@ exports.LIST = async ({ data, request }, { requestQueue }) => {
     }
 
     // Iterate forward
-    // if (count > 15) {
-    //     const pages = tools.splitRank(startRank, endRank);
+    if (count > 15) {
+        const pages = tools.splitRank(startRank, endRank);
 
-    //     for (const page of pages) {
-    //         await requestQueue.addRequest(page, { forefront: true });
-    //     }
-    // }
+        for (const page of pages) {
+            await requestQueue.addRequest(page, { forefront: true });
+        }
+    }
 
     log.debug(`CRAWLER: -- Checked VCs for rank: ${startRank}-${endRank}`);
 };
