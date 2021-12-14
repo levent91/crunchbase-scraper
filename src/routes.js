@@ -61,7 +61,7 @@ exports.LIST = async ({ data, request }, { requestQueue }) => {
         }
     }
 
-    log.debug(`CRAWLER: -- Checked VCs with type: ${investorType} for rank: ${startRank}-${endRank}`);
+    log.debug(`CRAWLER: -- Checked VCs for rank: ${startRank}-${endRank}`);
 };
 
 exports.ORGANIZATION = async ({ data, request }, { requestQueue }) => {
