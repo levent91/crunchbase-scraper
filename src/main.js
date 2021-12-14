@@ -33,7 +33,7 @@ Apify.main(async () => {
     // Create route
     const router = tools.createRouter({ requestQueue, proxyConfiguration, companyDataset });
 
-    log.info('PHASE -- SETTING UP CRAWLER.');
+    log.info('PHASE -- SETTING UP CRAWLER...');
     const crawler = new Apify.BasicCrawler({
         requestQueue,
         maxConcurrency: 25,
