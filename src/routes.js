@@ -39,7 +39,7 @@ exports.LIST = async ({ data, request }, { requestQueue }) => {
 
     // Get location
     const json = JSON.parse(data);
-    const { count, entities } = json;
+    const { entities } = json;
 
     // Fetch detail
     for (const entity of entities) {
@@ -53,13 +53,13 @@ exports.LIST = async ({ data, request }, { requestQueue }) => {
     }
 
     // Iterate forward
-    if (count > 15) {
-        const pages = tools.splitRank(startRank, endRank);
+    // if (count > 15) {
+    //     const pages = tools.splitRank(startRank, endRank);
 
-        for (const page of pages) {
-            await requestQueue.addRequest(page, { forefront: true });
-        }
-    }
+    //     for (const page of pages) {
+    //         await requestQueue.addRequest(page, { forefront: true });
+    //     }
+    // }
 
     log.debug(`CRAWLER: -- Checked VCs for rank: ${startRank}-${endRank}`);
 };
@@ -114,16 +114,14 @@ exports.ORGANIZATION = async ({ data, request }, { requestQueue }) => {
             round_type: investment.funding_round_identifier.value.split('-')[0].trim(),
             transaction_date: investment.announced_on,
             lead_investor: investment.is_lead_investor,
-            url_source: `https://www.crunchbase.com/organization/${investment.organization_identifier}`,
+            url_source: `https://www.crunchbase.com/organization/${investment.organization_identifier.permalink}`,
         })),
     };
-
 
     const companies = (cards.investments_list || []).map(investment => ({
         name: investment.organization_identifier.value,
         permalink: investment.organization_identifier.permalink,
     }));
-
 
     for (const company of companies) {
         await requestQueue.addRequest({
@@ -144,7 +142,6 @@ exports.COMPANY = async ({ data, request }, { companyDataset }) => {
     const { company } = request.userData;
     log.info(`PHASE: -- Fetching company: ${company.name}`);
 
-
     const companyJSON = JSON.parse(data);
 
     const output = {
@@ -158,7 +155,6 @@ exports.COMPANY = async ({ data, request }, { companyDataset }) => {
         && companyJSON.cards.company_about_fields2.location_identifiers.find(location => location.location_type === 'country').value,
         industry: companyJSON.cards.overview_fields_extended && companyJSON.cards.overview_fields_extended.categories && companyJSON.cards.overview_fields_extended.categories.map(category => category.value),
     };
-
 
     await companyDataset.pushData(output);
 

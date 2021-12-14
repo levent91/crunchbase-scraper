@@ -10,7 +10,7 @@ const {
 
 // Create crawler
 Apify.main(async () => {
-    log.info('PHASE -- STARTING ACTOR.');
+    log.info('PHASE -- STARTING ACTOR...');
 
     // Create request queue
     const requestQueue = await Apify.openRequestQueue();
@@ -36,7 +36,7 @@ Apify.main(async () => {
     log.info('PHASE -- SETTING UP CRAWLER...');
     const crawler = new Apify.BasicCrawler({
         requestQueue,
-        maxConcurrency: 25,
+        maxConcurrency: 50,
         handleRequestTimeoutSecs: 120,
         maxRequestRetries: 4,
         useSessionPool: true,
