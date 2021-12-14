@@ -5,7 +5,6 @@ const Apify = require('apify');
 const _ = require('lodash');
 const tools = require('./tools');
 
-
 const INVESTOR_TYPES = {
     investment_bank: 'Investment Bank',
     fund_of_funds: 'Fund Of Funds',
@@ -34,9 +33,9 @@ const {
 } = Apify;
 
 exports.LIST = async ({ data, request }, { requestQueue }) => {
-    const { startRank, endRank, investorType } = request.userData;
+    const { startRank, endRank } = request.userData;
 
-    log.info(`CRAWLER: -- Checking VCs with type: ${investorType} for rank: ${startRank}-${endRank}`);
+    log.info(`CRAWLER: -- Checking VCs for rank: ${startRank}-${endRank}`);
 
     // Get location
     const json = JSON.parse(data);
@@ -55,7 +54,7 @@ exports.LIST = async ({ data, request }, { requestQueue }) => {
 
     // Iterate forward
     if (count > 15) {
-        const pages = tools.splitRank(startRank, endRank, investorType);
+        const pages = tools.splitRank(startRank, endRank);
 
         for (const page of pages) {
             await requestQueue.addRequest(page, { forefront: true });
