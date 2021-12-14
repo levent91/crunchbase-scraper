@@ -35,11 +35,11 @@ exports.getSources = async () => {
                         'x-requested-with': 'XMLHttpRequest',
                     },
                     uniqueKey: `{"field_ids":["identifier","num_investments_funding_rounds","num_exits","location_identifiers"],"order":[{"field_id":"num_investments_funding_rounds","sort":"desc"}],"query":[{"type":"predicate","field_id":"investor_type","operator_id":"includes","values":[${type}]},{"type":"predicate","field_id":"rank_principal_investor","operator_id":"between","include_nulls":null,"values":[${i}, ${i + 25}]}],"field_aggregators":[],"collection_id":"principal.investors","limit":15}`,
-
                 },
             });
         }
     }
+    return sources;
 };
 
 // Create router
