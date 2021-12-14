@@ -53,13 +53,13 @@ exports.LIST = async ({ data, request }, { requestQueue }) => {
     }
 
     // Iterate forward
-    if (count > 15) {
-        const pages = tools.splitRank(startRank, endRank, investorType);
+    // if (count > 15) {
+    //     const pages = tools.splitRank(startRank, endRank, investorType);
 
-        for (const page of pages) {
-            await requestQueue.addRequest(page, { forefront: true });
-        }
-    }
+    //     for (const page of pages) {
+    //         await requestQueue.addRequest(page, { forefront: true });
+    //     }
+    // }
 
     log.debug(`CRAWLER: -- Checked VCs with type: ${investorType} for rank: ${startRank}-${endRank}`);
 };
