@@ -130,6 +130,7 @@ exports.ORGANIZATION = async ({ data, request }, { requestQueue }) => {
                 label: 'COMPANY',
                 company,
             },
+            uniqueKey: `${logValue}${company.permalink}`,
         });
     }
 
