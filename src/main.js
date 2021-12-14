@@ -38,6 +38,7 @@ Apify.main(async () => {
         requestQueue,
         maxConcurrency: 25,
         handleRequestTimeoutSecs: 120,
+        maxRequestRetries: 4,
         useSessionPool: true,
         handleRequestFunction: async (context) => {
             const { request, session } = context;
