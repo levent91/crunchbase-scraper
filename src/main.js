@@ -16,10 +16,8 @@ Apify.main(async () => {
     const requestQueue = await Apify.openRequestQueue();
 
     // Initialize first requests
-    const pages = await tools.getSources();
-    for (const page of pages) {
-        await requestQueue.addRequest({ ...page }, { forefront: true });
-    }
+    const page = await tools.getSources();
+    await requestQueue.addRequest({ ...page }, { forefront: true });
 
     // Proxy configuration
     const proxyConfiguration = await Apify.createProxyConfiguration();
